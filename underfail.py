@@ -330,7 +330,7 @@ class Menu:
 		if 'godsent' in self.unlocks:
 			pygame.draw.rect(self.screen, self.yellow, self.godsent_button_rect,0)
 			self.screen.blit(godsent_text,[450,600])
-
+		
 		if 'devilsent' in self.unlocks:
 			pygame.draw.rect(self.screen, self.purple, self.devilsent_button_rect,0)
 			self.screen.blit(devilsent_text,[1050,600])
@@ -350,8 +350,11 @@ class Menu:
 
 
 
-
+print('hello')
 unlocks = []
+with open('unlocks.txt') as f:
+	unlocks = f.read().splitlines()
+
 while True:
 	underfail_menu = Menu()
 	underfail_menu.run(unlocks)
