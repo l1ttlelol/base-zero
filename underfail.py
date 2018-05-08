@@ -11,6 +11,7 @@ class Game:
 	def __init__(self, config, unlocks):
 		self.config = config
 		self.unlocks = unlocks
+		self.unlock_updated = False
 
 	def run(self):
 		pygame.init()
@@ -125,16 +126,21 @@ class Game:
 		timetext = self.gameover_font.render(time_string, True, self.White)
 		timetext_size = self.gameover_font.size(time_string)
 		self.screen.blit(timetext,[(self.ScreenWidth/2)-timetext_size[0]/2,250])
-		if self.config['name'] == 'easy' and self.total_time > 60:
-			self.unlocks.append('hard')
-		if self.config['name'] == 'hard' and self.total_time > 60:
-			self.unlocks.append('epic')
-		if self.config['name'] == 'epic' and self.total_time > 60:
+		if self.config['name'] == 'epic' and self.total_time > 1:
 			self.unlocks.append('legendary')
-		if self.config['name'] == 'legendary' and self.total_time > 60:
+		if self.config['name'] == 'legendary' and self.total_time > 6:
 			self.unlocks.append('godsent')
 		if self.config['name'] == 'godsent' and self.total_time > 30:
 			self.unlocks.append('devilsent')
+		self.save_unlocks()
+
+	def save_unlocks(self):
+		if self.unlock_updated == False:
+			with open('unlocks.txt', 'w') as f:
+				for unlock in self.unlocks:
+					f.write(unlock + "\n")
+			self.unlock_updated = True
+
 
 	def draw_health(self):
 
@@ -315,18 +321,18 @@ class Menu:
 		pygame.draw.rect(self.screen, self.White, self.easy_button_rect,2)
 		self.screen.blit(easy_text,[300,300])
 		
-		if 'hard' in self.unlocks:	
-			pygame.draw.rect(self.screen, self.White, self.hard_button_rect,2)
-			self.screen.blit(hard_text,[600,300])
+	
+		pygame.draw.rect(self.screen, self.White, self.hard_button_rect,2)
+		self.screen.blit(hard_text,[600,300])
 		
-		if 'epic' in self.unlocks:	
-			pygame.draw.rect(self.screen, self.White, self.epic_button_rect,2)
-			self.screen.blit(epic_text,[900,300])
+	
+		pygame.draw.rect(self.screen, self.White, self.epic_button_rect,2)
+		self.screen.blit(epic_text,[900,300])
 
 		if 'legendary' in self.unlocks:	
 			pygame.draw.rect(self.screen, self.White, self.legendary_button_rect,2)
 			self.screen.blit(legendary_text,[1200,300])
-		
+			
 		if 'godsent' in self.unlocks:
 			pygame.draw.rect(self.screen, self.yellow, self.godsent_button_rect,0)
 			self.screen.blit(godsent_text,[450,600])
