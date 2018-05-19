@@ -46,10 +46,11 @@ class Game:
 		self.x_acceleration = 0
 		self.font = pygame.font.SysFont('Calibri', 25, True, False)
 		self.gameover_font = pygame.font.SysFont('Calibri', 50, True, False)
+		
 		self.enemy_x = 1200
 		self.enemy_y = 400
-		self.enemy_hitbox = (self.enemy_x,self.enemy_y,70,70)
-		self.enemy_move_probility = random.randrange(0,100)
+		self.enemy_hitbox = pygame.Rect(self.enemy_x,self.enemy_y,70,70)
+		self.enemy_move_probility = random.randrange(0,4)
 
 		self.configeration = ()
 
@@ -115,6 +116,30 @@ class Game:
 	#		if self.hit_box.collidepoint(projectile['x'], projectile['y']):
 	#			self.player_health -= self.config['player_health_deduction']
 	#			self.projectiles.remove(projectile) 
+	def enemy_move_select(self):
+		if self.enemy_move_probility == 1:
+			self.enemy_x = self.enemy_x + 10	
+			self.enemy_x = self.enemy_x + 10		
+			self.enemy_x = self.enemy_x + 10
+			self.enemy_move_probility = random.randrange(0,4)
+
+		if self.enemy_move_probility == 2:
+			self.enemy_x = self.enemy_x - 10	
+			self.enemy_x = self.enemy_x - 10		
+			self.enemy_x = self.enemy_x - 10
+			self.enemy_move_probility = random.randrange(0,4)
+
+		if self.enemy_move_probility == 3:
+			self.enemy_y = self.enemy_y - 10	
+			self.enemy_y = self.enemy_y - 10		
+			self.enemy_y = self.enemy_y - 10
+			self.enemy_move_probility = random.randrange(0,4)
+
+		if self.enemy_move_probility == 4:
+			self.enemy_y = self.enemy_y + 10	
+			self.enemy_y = self.enemy_y + 10		
+			self.enemy_y = self.enemy_y + 10
+			self.enemy_move_probility = random.randrange(0,4)
 
 	def update_player_health(self):
 		if self.player_health < 1 and self.total_time == -1:
@@ -185,6 +210,7 @@ class Game:
 
 		
 			#self.update_projectiles()
+			self.enemy_move_select()
 			self.drawing()
 			self.timer()
 			self.update_player_health()
