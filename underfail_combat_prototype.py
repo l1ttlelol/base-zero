@@ -9,7 +9,7 @@ import sys
 
 class Game:
 	def __init__(self, config, unlocks):
-		self.config = configs
+		self.config = config
 		self.unlocks = unlocks
 		self.unlock_updated = False
 
@@ -22,28 +22,34 @@ class Game:
 		self.yellow = (248,240,192)
 		self.purple = (174,295,255)
 
+		self.boundary_x = 400
+		self.boundary_y = 400
+		self.boundary_length = 1120
+		self.boundary_height = 580
+		self.boundary_right = self.boundary_x + self.boundary_length
+
 		self.player_health = (50)
 		self.player_x = (700)
 		self.player_y = (700)
 		self.player = (self.player_x, self.player_y, self.player_health)
 
-		self.projectiles = []	
+		#self.projectiles = []	
 		self.hit_box = pygame.Rect(self.player_x, self.player_y, 70, 70)
 
 		self.ScreenWidth = 1920
 		self.ScreenHeight = 1080
 		self.size = (self.ScreenWidth, self.ScreenHeight)
-		self.screen = pygame.display.set_mode(self.size) pygame.display.set_caption("underfail demo")
+		self.screen = pygame.display.set_mode(self.size) 
+		pygame.display.set_caption("underfail demo")
 		self.clock = pygame.time.Clock()
 		self.y_acceleration = 0
 		self.x_acceleration = 0
 		self.font = pygame.font.SysFont('Calibri', 25, True, False)
 		self.gameover_font = pygame.font.SysFont('Calibri', 50, True, False)
-		
 		self.enemy_x = 1200
-		self.enemy_y = 400		
-		self.enemy_hitbox = pygame.Rect(self.enemy_x,self.enemy_y,70,70)
-		self.enemy_move_probility = self.random.randrange(0,100)
+		self.enemy_y = 400
+		self.enemy_hitbox = (self.enemy_x,self.enemy_y,70,70)
+		self.enemy_move_probility = random.randrange(0,100)
 
 		self.configeration = ()
 
@@ -99,16 +105,16 @@ class Game:
 			if keys[pygame.K_SPACE]:
 				self.done =True
 
-	def update_projectiles(self):
+	#def update_projectiles(self):
 		# Loop through the projectiles and do stuff
-		for projectile in self.projectiles:
-			if projectile['x'] >= self.boundary_right:
-				self.projectiles.remove(projectile)
-			else:
-				projectile['x'] = projectile['x'] + 10
-			if self.hit_box.collidepoint(projectile['x'], projectile['y']):
-				self.player_health -= self.config['player_health_deduction']
-				self.projectiles.remove(projectile) 
+	#	for projectile in self.projectiles:
+	#		if projectile['x'] >= self.boundary_right:
+	#			self.projectiles.remove(projectile)
+	#		else:
+	#			projectile['x'] = projectile['x'] + 10
+	#		if self.hit_box.collidepoint(projectile['x'], projectile['y']):
+	#			self.player_health -= self.config['player_health_deduction']
+	#			self.projectiles.remove(projectile) 
 
 	def update_player_health(self):
 		if self.player_health < 1 and self.total_time == -1:
@@ -157,12 +163,12 @@ class Game:
 
 		pygame.draw.rect(self.screen, self.White, [400,400, self.boundary_length, self.boundary_height],2)
 
-		for projectile in self.projectiles:
-			pygame.draw.line( self.screen, self.White,
-				[projectile['x'], projectile['y']], [projectile['x'] - 30, projectile['y'] ])
+	#	for projectile in self.projectiles:
+	#		pygame.draw.line( self.screen, self.White,
+	#			[projectile['x'], projectile['y']], [projectile['x'] - 30, projectile['y'] ])
 		self.screen.blit(img,(self.hit_box))
 		
-		pygame.draw.ellipse(self.screen,self.Black,)
+		pygame.draw.ellipse(self.screen,self.White,(self.enemy_hitbox))
 
 	def loop(self):
 		self.done = False
@@ -174,11 +180,11 @@ class Game:
 			self.hit_box.x += self.x_acceleration
 			self.hit_box.y += self.y_acceleration
 
-			if random.randint(0, self.config['inverse_projectile_probability']) == 0 and len(self.projectiles) < self.config['max_projectiles']:
-				self.projectiles.append({'x': random.randrange(400,450), 'y': random.randrange(400,980)})
+			#if random.randint(0, self.config['inverse_projectile_probability']) == 0 and len(self.projectiles) < self.config['max_projectiles']:
+			#	self.projectiles.append({'x': random.randrange(400,450), 'y': random.randrange(400,980)})
 
 		
-			self.update_projectiles()
+			#self.update_projectiles()
 			self.drawing()
 			self.timer()
 			self.update_player_health()
