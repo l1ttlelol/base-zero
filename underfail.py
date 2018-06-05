@@ -29,11 +29,13 @@ class Game:
 
 		self.projectiles = []	
 		self.hit_box = pygame.Rect(self.player_x, self.player_y, 70, 70)
+		self.projectile_offset = 1
 
 		self.ScreenWidth = 1920
 		self.ScreenHeight = 1080
 		self.size = (self.ScreenWidth, self.ScreenHeight)
-		self.screen = pygame.display.set_mode(self.size) pygame.display.set_caption("underfail demo")
+		self.screen = pygame.display.set_mode(self.size)
+		pygame.display.set_caption("underfail demo")
 		self.clock = pygame.time.Clock()
 		self.y_acceleration = 0
 		self.x_acceleration = 0

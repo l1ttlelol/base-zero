@@ -49,7 +49,7 @@ class Game:
 		
 		self.enemy_x = 1200
 		self.enemy_y = 400
-		self.enemy_hitbox = pygame.Rect(self.enemy_x,self.enemy_y,70,70)
+		self.enemy_hitbox = pygame.hard_button_rect	(self.enemy_x,self.enemy_y,70,70)
 		self.enemy_move_probility = random.randrange(0,4)
 
 		self.configeration = ()
