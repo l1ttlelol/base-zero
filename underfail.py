@@ -9,7 +9,7 @@ import sys
 
 class Game:
 	def __init__(self, config, unlocks):
-		self.config = configs
+		self.config = config
 		self.unlocks = unlocks
 		self.unlock_updated = False
 
@@ -20,7 +20,7 @@ class Game:
 		self.Black = (0,0,0)
 		self.White = (255,255,255)
 		self.yellow = (248,240,192)
-		self.purple = (174,295,255)
+		self.purple = (174,255,255)
 
 		self.player_health = (50)
 		self.player_x = (700)
@@ -29,7 +29,14 @@ class Game:
 
 		self.projectiles = []	
 		self.hit_box = pygame.Rect(self.player_x, self.player_y, 70, 70)
-		self.projectile_offset = 1
+		self.projectile_offset = 0
+		self.projectile_offset_change = +1
+
+		self.boundary_x = 400
+		self.boundary_y = 400
+		self.boundary_length = 1120
+		self.boundary_height = 580
+		self.boundary_right = self.boundary_x + self.boundary_length
 
 		self.ScreenWidth = 1920
 		self.ScreenHeight = 1080
@@ -45,7 +52,7 @@ class Game:
 		self.enemy_x = 1200
 		self.enemy_y = 400		
 		self.enemy_hitbox = pygame.Rect(self.enemy_x,self.enemy_y,70,70)
-		self.enemy_move_probility = self.random.randrange(0,100)
+		self.enemy_move_probility = random.randrange(0,100)
 
 		self.configeration = ()
 
@@ -111,6 +118,17 @@ class Game:
 			if self.hit_box.collidepoint(projectile['x'], projectile['y']):
 				self.player_health -= self.config['player_health_deduction']
 				self.projectiles.remove(projectile) 
+			if self.projectile_offset < 40 and self.projectile_offset > -40:
+				self.projectile_offset = self.projectile_offset + 1
+				if self.projectile_offset >40:
+					self.projectile_offset = 0
+					self.projectile_offset_change = -1
+				if self.projectile_offset <-40:
+					self.projectile_offset = 0
+					self.projectile_offset_change = +1
+			self.projectile_offset = self.projectile_offset + self.projectile_offset_change
+			projectile['y'] = projectile['y'] + self.projectile_offset
+
 
 	def update_player_health(self):
 		if self.player_health < 1 and self.total_time == -1:
@@ -164,7 +182,7 @@ class Game:
 				[projectile['x'], projectile['y']], [projectile['x'] - 30, projectile['y'] ])
 		self.screen.blit(img,(self.hit_box))
 		
-		pygame.draw.ellipse(self.screen,self.Black,)
+		pygame.draw.ellipse(self.screen,self.purple,(500,500,40,40))
 
 	def loop(self):
 		self.done = False
