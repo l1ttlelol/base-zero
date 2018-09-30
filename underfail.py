@@ -49,10 +49,10 @@ class Game:
 		self.font = pygame.font.SysFont('Calibri', 25, True, False)
 		self.gameover_font = pygame.font.SysFont('Calibri', 50, True, False)
 		
-		self.enemy_x = 1200
-		self.enemy_y = 400		
-		self.enemy_hitbox = pygame.Rect(self.enemy_x,self.enemy_y,70,70)
-		self.enemy_move_probility = random.randrange(0,100)
+		#self.enemy_x = 1200
+		#self.enemy_y = 400		
+		#self.enemy_hitbox = pygame.Rect(self.enemy_x,self.enemy_y,70,70)
+		#self.enemy_move_probility = random.randrange(0,100)
 
 		self.configeration = ()
 
@@ -118,16 +118,16 @@ class Game:
 			if self.hit_box.collidepoint(projectile['x'], projectile['y']):
 				self.player_health -= self.config['player_health_deduction']
 				self.projectiles.remove(projectile) 
-			if self.projectile_offset < 40 and self.projectile_offset > -40:
-				self.projectile_offset = self.projectile_offset + 1
-				if self.projectile_offset >40:
-					self.projectile_offset = 0
-					self.projectile_offset_change = -1
-				if self.projectile_offset <-40:
-					self.projectile_offset = 0
-					self.projectile_offset_change = +1
-			self.projectile_offset = self.projectile_offset + self.projectile_offset_change
-			projectile['y'] = projectile['y'] + self.projectile_offset
+			#if self.projectile_offset < 40 and self.projectile_offset > -40:
+			#	self.projectile_offset = self.projectile_offset + 1
+			#	if self.projectile_offset >40:
+			#		self.projectile_offset = 0
+			#		self.projectile_offset_change = -1
+			#	if self.projectile_offset <-40:
+			#		self.projectile_offset = 0
+			#		self.projectile_offset_change = +1			
+			#self.projectile_offset = self.projectile_offset + self.projectile_offset_change
+			#projectile['y'] = projectile['y'] + self.projectile_offset
 
 
 	def update_player_health(self):
@@ -182,7 +182,7 @@ class Game:
 				[projectile['x'], projectile['y']], [projectile['x'] - 30, projectile['y'] ])
 		self.screen.blit(img,(self.hit_box))
 		
-		pygame.draw.ellipse(self.screen,self.purple,(500,500,40,40))
+		#pygame.draw.ellipse(self.screen,self.purple,(500,500,40,40))
 
 	def loop(self):
 		self.done = False
