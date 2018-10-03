@@ -166,6 +166,7 @@ class Game:
 				for unlock in self.unlocks:
 					f.write(unlock + "\n")
 			self.unlock_updated = True
+			#This allows unlockables to be used
 
 
 	def draw_health(self):
@@ -173,11 +174,13 @@ class Game:
 		text = self.font.render("HEALTH",True, self.White)
 		pygame.draw.rect(self.screen, self.White, [350, 250, self.player_health*2, 20])
 		self.screen.blit(text,[250,250])
+		#This will draw a `health bar` that slowly decreases
 
 	def timer(self):		
 		self.time_elapsed = time.time() - self.start_time
 		timetext = self.font.render(time.strftime("%M:%S", time.gmtime(self.time_elapsed)),True, self.White)
 		self.screen.blit(timetext,[1250,250])
+		#This will print a timer
 
 	def drawing(self):		
 		self.screen.fill(self.Black)
@@ -189,8 +192,8 @@ class Game:
 			pygame.draw.line( self.screen, self.White,
 				[projectile['x'], projectile['y']], [projectile['x'] - 30, projectile['y'] ])
 		self.screen.blit(img,(self.hit_box))
+		#this will draw anything that needs to be drawn on the screen
 		
-		#pygame.draw.ellipse(self.screen,self.purple,(500,500,40,40))
 
 	def loop(self):
 		self.done = False
@@ -214,6 +217,7 @@ class Game:
 			pygame.display.flip()
 
 			self.clock.tick(60)
+			#This starts the loop
 
 class Menu:
 	def run(self, unlocks):
@@ -232,6 +236,7 @@ class Menu:
 		self.legendary_button_rect = pygame.Rect(1190, 290, self.button_width, self.button_height)
 		self.godsent_button_rect = pygame.Rect(445, 590, self.button_width, self.button_height)
 		self.devilsent_button_rect = pygame.Rect(1045, 590, self.button_width, self.button_height)
+		#These are redefined variables and newly defined variables to help with the menu
 
 		self.ScreenWidth = 1920
 		self.ScreenHeight = 1080
@@ -329,7 +334,7 @@ class Menu:
 				if self.devilsent_button_rect.collidepoint(pos):
 					self.done = True
 					self.selected_config = 'devilsent'
-
+#This is what controls the clicking on the menu buttons
 	def drawing(self):		
 		self.screen.fill(self.Black)
 
@@ -365,7 +370,7 @@ class Menu:
 		if 'devilsent' in self.unlocks:
 			pygame.draw.rect(self.screen, self.purple, self.devilsent_button_rect,0)
 			self.screen.blit(devilsent_text,[1050,600])
-
+#This draws all the code used for the menu
 
 	def loop(self):
 		self.done = False
