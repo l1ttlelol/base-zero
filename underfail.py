@@ -2,17 +2,18 @@ import pygame
 from pygame.locals import*
 img = pygame.image.load('soul sprite.png')
 img = pygame.transform.scale(img,(70,70))
+#This is going to set an images size (from the same folder as the file)
 import random
 import time
 import sys
-
+#This imports all the command selections I will need
 
 class Game:
 	def __init__(self, config, unlocks):
 		self.config = config
 		self.unlocks = unlocks
 		self.unlock_updated = False
-
+	#This sets the class `Game`
 	def run(self):
 		pygame.init()
 		self.start_time = time.time()
@@ -21,22 +22,27 @@ class Game:
 		self.White = (255,255,255)
 		self.yellow = (248,240,192)
 		self.purple = (174,255,255)
+		#This defines the colours as variables for the program + a variable for time using an imported command selection
 
 		self.player_health = (50)
 		self.player_x = (700)
 		self.player_y = (700)
 		self.player = (self.player_x, self.player_y, self.player_health)
+		#This defines a bunch of variable relating to the main character
 
 		self.projectiles = []	
 		self.hit_box = pygame.Rect(self.player_x, self.player_y, 70, 70)
 		self.projectile_offset = 0
 		self.projectile_offset_change = +1
+		#This defines a bunch of variables relating to the projectiles
 
 		self.boundary_x = 400
 		self.boundary_y = 400
 		self.boundary_length = 1120
 		self.boundary_height = 580
 		self.boundary_right = self.boundary_x + self.boundary_length
+		#This defines a bunch of variables relating to the boundary 
+
 
 		self.ScreenWidth = 1920
 		self.ScreenHeight = 1080
@@ -48,7 +54,8 @@ class Game:
 		self.x_acceleration = 0
 		self.font = pygame.font.SysFont('Calibri', 25, True, False)
 		self.gameover_font = pygame.font.SysFont('Calibri', 50, True, False)
-		
+		#This defines a bunch of variable for the window of the game
+
 		#self.enemy_x = 1200
 		#self.enemy_y = 400		
 		#self.enemy_hitbox = pygame.Rect(self.enemy_x,self.enemy_y,70,70)
@@ -64,6 +71,7 @@ class Game:
 				self.screen.fill(self.Black)
 				self.done = True
 				sys.exit()
+				#This block of code is used to handle the events such as the pressing of buttons.
 
 			if event.type == pygame.KEYUP:
 				self.x_acceleration = 0
