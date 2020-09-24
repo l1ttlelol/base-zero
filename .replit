@@ -1,0 +1,2 @@
+language = "pygame"
+run = "underfail.py"
